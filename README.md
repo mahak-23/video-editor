@@ -36,6 +36,10 @@ Users can:
 - [WaveSurfer.js](https://wavesurfer-js.org/)
 
 ---
+## 🎥 Demo Video:
+[Watch Demo](https://drive.google.com/file/d/11qFUOzh0_ldWmM_JqPIePJD1USSgzwh9/view?usp=sharing)
+
+---
 
 ## 🛠️ Getting Started
 
