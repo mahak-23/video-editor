@@ -76,7 +76,7 @@ Open http://localhost:3000 in your browser to see the editor in action.
 
 ```pgsql
 app/
-  page.js                 # Main page component with UI and logic
+  page.jsx                 # Main page component with UI and logic
 components/
   layout/
     Header.js

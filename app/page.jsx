@@ -1,12 +1,10 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useDropzone } from "react-dropzone";
-
-import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { fetchFile } from "@ffmpeg/util";
 
 import {
   setVideo,
@@ -19,8 +17,6 @@ import * as helpers from "../helper";
 
 import RangeInput from "../components/layout/RangeInput";
 import Waveform from "@/components/layout/Waveform";
-
-const ffmpeg = new FFmpeg({ log: true });
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -37,13 +33,21 @@ export default function HomePage() {
   const [videoMeta, setVideoMeta] = useState(null);
 
   const videoRef = useRef(null);
+  const [ffmpeg, setFfmpeg] = useState(null);
+  const [fetchFileFn, setFetchFileFn] = useState(null);
 
-  // Load FFmpeg automatically when component mounts
   useEffect(() => {
     const loadFFmpeg = async () => {
-      await ffmpeg.load();
+      const { FFmpeg } = await import("@ffmpeg/ffmpeg");
+      const { fetchFile } = await import("@ffmpeg/util");
+
+      const ffmpegInstance = new FFmpeg({ log: true });
+      await ffmpegInstance.load();
+      setFfmpeg(ffmpegInstance);
+      setFetchFileFn(() => fetchFile);
       setReady(true);
     };
+
     loadFFmpeg();
   }, []);
 
@@ -65,7 +69,7 @@ export default function HomePage() {
     const url = URL.createObjectURL(file);
     dispatch(setVideo({ url }));
 
-    await ffmpeg.writeFile("input.mp4", await fetchFile(file));
+    await ffmpeg.writeFile("input.mp4", await fetchFileFn(file));
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -90,7 +94,7 @@ export default function HomePage() {
 
     await ffmpeg.writeFile(
       inputVideoFile.name,
-      await fetchFile(inputVideoFile)
+      await fetchFileFn(inputVideoFile)
     );
 
     const arrayOfImageURIs = [];
@@ -148,7 +152,7 @@ export default function HomePage() {
     try {
       await ffmpeg.writeFile(
         inputVideoFile.name,
-        await fetchFile(inputVideoFile)
+        await fetchFileFn(inputVideoFile)
       );
 
       await ffmpeg.exec([
