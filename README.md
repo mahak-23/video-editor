@@ -1,4 +1,4 @@
-# 🎬 Browser-Based Video Editor
+# 🎬 [Browser-Based Video Editor](https://web-video-editor.netlify.app/)
 
 This is a frontend-only browser-based video editing platform built using **Next.js (App Router)**, **React**, **Tailwind CSS**, **Redux Toolkit**, **Wavesurfer.js**, and **FFmpeg** (via WebAssembly).
 
