@@ -41,6 +41,15 @@ Users can:
 
 ---
 
+## 🌐 Deployment
+
+This app is live at:
+👉 [Live Link](https://web-video-editor.netlify.app/)
+
+Deployed via [Netlify](https://www.netlify.com/) – leveraging its powerful static hosting and CI/CD integration for seamless deployments of frontend-only apps.
+
+---
+
 ## 🛠️ Getting Started
 
 ### Prerequisites
